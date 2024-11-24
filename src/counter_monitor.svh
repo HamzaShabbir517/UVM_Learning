@@ -47,8 +47,8 @@ class counter_monitor extends uvm_monitor;
    		rsp_item.data = i.q;
    		response_port.write(rsp_item);
    		
-   		`uvm_info("Monitor Run",$sformatf("Monitor got req %s",req_item.convert2string()),UVM_DEBUG);
-   		`uvm_info("Monitor Run",$sformatf("Monitor got rsp %s",rsp_item.convert2string()),UVM_DEBUG);
+   		`uvm_info("Monitor Run",{"Monitor got req ",req_item.convert2string()},UVM_DEBUG);
+   		`uvm_info("Monitor Run",{"Monitor got rsp ",rsp_item.convert2string()},UVM_DEBUG);
    		
    	end
    endtask

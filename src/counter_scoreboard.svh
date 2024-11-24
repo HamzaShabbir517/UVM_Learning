@@ -29,21 +29,21 @@ class counter_scoreboard  extends uvm_component;
    task run_phase(uvm_phase phase);
       forever begin
          scoreboard_analysis_port.get(actual_item);
-         `uvm_info("Scoreboard Run",$sformatf("Comparator Actual: %s",
-                actual_item.convert2string()), 
+         `uvm_info("Scoreboard Run",{"Comparator Actual: ",
+                actual_item.convert2string()}, 
                 UVM_DEBUG)
                 
          predicted_port.get(predicted_item);
-         `uvm_info("Scoreboard Run",$sformatf("Comparator Predicted: %s",
-                predicted_item.convert2string()), 
+         `uvm_info("Scoreboard Run",{"Comparator Predicted: ",
+                predicted_item.convert2string()}, 
                 UVM_DEBUG)
                 
          // Called the comparison method
          if (actual_item.comp(predicted_item))
-           `uvm_info("Scoreboard Run", $sformatf("passed: %s",actual_item.convert2string()),UVM_MEDIUM)
+           `uvm_info("Scoreboard Run", {"passed: ",actual_item.convert2string()},UVM_MEDIUM)
          else
-           `uvm_error("Scoreboard Run", $sformatf("FAILED: Expected: %s   Actual: %s",
-                            predicted_item.convert2string(),predicted_item.convert2string()))
+           `uvm_error("Scoreboard Run", {"FAILED: Expected:    Actual: ",
+                            predicted_item.convert2string(),predicted_item.convert2string()})
         
       end
    endtask

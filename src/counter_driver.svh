@@ -27,7 +27,7 @@ class counter_driver extends uvm_driver #(counter_sequence_item);
    	forever begin
    		@(negedge i.clk);
    		seq_item_port.get_next_item(seq_item);
-   		`uvm_info("Driver Run",$sformatf("Driver got %s",seq_item.convert2string()),UVM_DEBUG)
+   		`uvm_info("Driver Run",{"Driver got ",seq_item.convert2string()},UVM_DEBUG)
    		transfer(seq_item);
    		seq_item_port.item_done();
    	end

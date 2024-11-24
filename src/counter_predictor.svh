@@ -45,7 +45,7 @@ class counter_predictor  extends uvm_component;
          rsp_item.load_data(beh_q,op);
          $cast(rsp_item_cln,rsp_item.clone());
          predictor_output_port.put(rsp_item_cln);
-         `uvm_info(" Pedictor Run",$sformatf("Predictor predicted %s",rsp_item.convert2string()),UVM_DEBUG)
+         `uvm_info(" Pedictor Run",{"Predictor predicted ",rsp_item.convert2string()},UVM_DEBUG)
       end
    endtask
 
