@@ -41,21 +41,21 @@ class counter_driver extends uvm_driver #(counter_sequence_item);
    		reset: begin
    			i.rst = 0;
    			i.inc = 0;
-   			i.load = 0;
+   			i.ld = 0;
    			i.data_in = 0;
    		end
    		// If the operation is of load
    		load: begin
    			i.rst = 1;
    			i.inc = 0;
-   			i.load = 1;
+   			i.ld = 1;
    			i.data_in = item.data;
    		end
    		// If the operation is of increment
    		inc: begin
    			i.rst = 1;
    			i.inc = 1;
-   			i.load = 0;
+   			i.ld = 0;
    			i.data_in = item.data;
    		end
    		// If the operation is of nop

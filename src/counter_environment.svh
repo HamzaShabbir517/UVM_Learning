@@ -16,7 +16,7 @@ class counter_environment extends uvm_env;
      // Declaration of Driver
      counter_driver driver;
      // Declaration of Sequencer
-     uvm_sequencer #(counter_sequence_item) sequencer;
+     uvm_sequencer #(counter_sequence_item,counter_sequence_item) sequencer_h;
      // Declaration of Monitor
      counter_monitor monitor;
      // Declaration of Predictor
@@ -45,7 +45,7 @@ class counter_environment extends uvm_env;
      	// Creating other components from factory
      	driver = counter_driver::type_id::create("driver",this);
      	monitor = counter_monitor::type_id::create("monitor",this);
-     	sequencer = new("sequencer",this);
+     	sequencer_h = new("sequencer_h",this);
      	predictor = counter_predictor::type_id::create("predictor",this);
      	scoreboard = counter_scoreboard::type_id::create("scoreboard",this);
      	pred2scb = new("pred2scb",this);
@@ -54,9 +54,9 @@ class counter_environment extends uvm_env;
      
      // Environment Connect Phase
      function void connect_phase(uvm_phase phase);
-     	super.connect_phase(uvm_phase);
+     	super.connect_phase(phase);
      	// Connecting Sequencer with Driver
-     	driver.seq_item_port.connect(sequencer.seq_item_export);
+     	driver.seq_item_port.connect(sequencer_h.seq_item_export);
      	// Connecting Predictor with TLM FIFO
      	predictor.predictor_output_port.connect(pred2scb.blocking_put_export);
      	// Connecting Scoreboard with TLM FIFO
@@ -71,11 +71,11 @@ class counter_environment extends uvm_env;
      task run_phase(uvm_phase phase);
      	phase.raise_objection(this);
      	// Start the test Sequence
-     	rst_seq.start(sequencer);
+     	rst_seq.start(sequencer_h);
      	fork
-     		inc_seq.start(sequencer);
-     		load_seq.start(sequencer);
-     		ran_seq.start(sequencer);
+     		inc_seq.start(sequencer_h);
+     		load_seq.start(sequencer_h);
+     		ran_seq.start(sequencer_h);
      	join
      	phase.drop_objection(this);
      endtask

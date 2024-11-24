@@ -39,7 +39,7 @@ class counter_monitor extends uvm_monitor;
    		// Capture the input signals (request)
    		req_item.data = i.data_in;
    		req_item.op = (i.inc) ? inc :
-   			      (i.ld)  ? laod  :
+   			      (i.ld)  ? load  :
                              (~i.rst) ? reset : nop;
    		request_port.write(req_item);
    		

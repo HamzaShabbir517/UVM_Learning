@@ -37,6 +37,6 @@ class counter_sequence_item extends uvm_sequence_item;
   // Load Data Function
   function void load_data(logic[7:0] d, ctr_op o);
     data = d;
-    op = o
+    op = o;
   endfunction
 endclass : counter_sequence_item

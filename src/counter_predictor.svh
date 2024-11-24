@@ -12,6 +12,7 @@ class counter_predictor  extends uvm_component;
    
    // Declaring internal variable for behavioural q
    logic [7:0] beh_q;
+   ctr_op op = nop;
    
    // Declaring Counter sequence item for request and response
    counter_sequence_item req_item;
@@ -41,11 +42,11 @@ class counter_predictor  extends uvm_component;
            load  : beh_q = req_item.data;
          endcase
          
-         rsp_item.load_data(beh_q);
+         rsp_item.load_data(beh_q,op);
          $cast(rsp_item_cln,rsp_item.clone());
          predictor_output_port.put(rsp_item_cln);
          `uvm_info(" Pedictor Run",$sformatf("Predictor predicted %s",rsp_item.convert2string()),UVM_DEBUG)
-      end : forever_loop
+      end
    endtask
 
 endclass

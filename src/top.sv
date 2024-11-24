@@ -6,7 +6,7 @@ import counter_pkg::*;
 module top;
 
    // Declaration of signals
-   bit clk;
+   bit clk = 0;
    
    // Declaration of counter interface
    counter_if ctr_if(clk);
@@ -22,7 +22,6 @@ module top;
 	      );
 	     
    // Clock Generation
-   clk = 0;
    always begin
    	#10;
    	clk = ~clk;
