@@ -24,9 +24,16 @@ package counter_pkg;
    `include "counter_random_sequence.svh"
    
    // UVM Agents
+   `include "counter_driver.svh"
+   `include "counter_monitor.svh"
+   `include "counter_predictor.svh"
+   `include "counter_scoreboard.svh"
    
+   // UVM Environment
+   `include "counter_environment.svh"
    
-
-
+   // UVM Test
+   `include "counter_test.svh"
+   
 endpackage // counter_pkg
    

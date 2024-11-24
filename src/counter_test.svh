@@ -8,7 +8,7 @@ class counter_test extends uvm_test;
    `uvm_component_utils(counter_test);
 
    // Declaration of Environment Component
-   counter_env env;
+   counter_environment env;
 
    // New Constructor
    function new(string name="", uvm_component parent);
@@ -19,7 +19,7 @@ class counter_test extends uvm_test;
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
       counter_pkg::verbose = 1;
-      env = counter_env::type_id::create("env",this);     
+      env = counter_environment::type_id::create("env",this);     
    endfunction : build_phase
    
 endclass

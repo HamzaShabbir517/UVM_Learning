@@ -31,7 +31,7 @@ class counter_sequence_item extends uvm_sequence_item;
   function bit comp(uvm_object rhs);
     counter_sequence_item RHS;
     $cast(RHS,rhs);
-    return data == RHS.data && op == RHS.op;
+    return data == RHS.data;
   endfunction : comp
   
   // Load Data Function
