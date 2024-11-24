@@ -14,7 +14,18 @@ package counter_pkg;
    bit verbose = 0;
    
    // Including UVM macros
-   `include "uvm_macros.svh"  
+   `include "uvm_macros.svh"
+   
+   // UVM Transactions
+   `include "counter_sequence_item.svh"
+   `include "counter_reset_sequence.svh"
+   `include "counter_inc_sequence.svh"
+   `include "counter_load_sequence.svh"
+   `include "counter_random_sequence.svh"
+   
+   // UVM Agents
+   
+   
 
 
 endpackage // counter_pkg
