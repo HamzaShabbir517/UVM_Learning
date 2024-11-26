@@ -7,12 +7,6 @@ package counter_pkg;
    // Operation type
    typedef enum {inc, load, nop, reset} ctr_op;
    
-   // Gloabal counter interface
-   virtual interface counter_if global_if;
-
-   // Verbosity bit
-   bit verbose = 0;
-   
    // Including UVM macros
    `include "uvm_macros.svh"
    
@@ -26,6 +20,7 @@ package counter_pkg;
    // UVM Agents
    `include "counter_driver.svh"
    `include "counter_monitor.svh"
+   `include "counter_agent.svh"
    `include "counter_predictor.svh"
    `include "counter_scoreboard.svh"
    

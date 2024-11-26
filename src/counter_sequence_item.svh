@@ -7,12 +7,19 @@ class counter_sequence_item extends uvm_sequence_item;
   // Declaration of Variables
   rand logic [7:0] data;
   rand ctr_op op;
+  rand logic [7:0] q;
   
   // Constructor
-  function new(string name = "");
+  function new(string name="");
       super.new(name);
    endfunction : new
+   
+   // Load Data Function
+  function void load_data(logic[7:0] q_h);
+    q = q_h;
+  endfunction
 
+  /*
   // Convert to String Function
   function string convert2string();
     return $sformatf("data: %2h op: %2h", data,op);
@@ -25,6 +32,7 @@ class counter_sequence_item extends uvm_sequence_item;
     $cast(RHS, rhs);
     data = RHS.data;
     op = RHS.op;
+    q = RHS.q;
   endfunction : do_copy
 
   // Comparison Function
@@ -39,4 +47,5 @@ class counter_sequence_item extends uvm_sequence_item;
     data = d;
     op = o;
   endfunction
+  */
 endclass : counter_sequence_item

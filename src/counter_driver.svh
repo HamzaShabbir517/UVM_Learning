@@ -2,7 +2,7 @@
 class counter_driver extends uvm_driver #(counter_sequence_item);
 
    // Register the driver with factory
-   `uvm_component_utils(counter_driver);
+   `uvm_component_utils(counter_driver)
 
    // Declaration of Virtual Interface
    virtual interface counter_if i;
@@ -18,7 +18,9 @@ class counter_driver extends uvm_driver #(counter_sequence_item);
    // Driver Build Phase
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
-      i = counter_pkg::global_if;   
+      // Get the interface from config db
+      if(!uvm_config_db #(virtual counter_if)::get(this,"*","vif",i))
+      	`uvm_fatal("Driver",$sformatf("Virtual Interface Not Found"));
    endfunction : build_phase
    
    // Driver Run Task
@@ -27,7 +29,7 @@ class counter_driver extends uvm_driver #(counter_sequence_item);
    	forever begin
    		@(negedge i.clk);
    		seq_item_port.get_next_item(seq_item);
-   		`uvm_info("Driver Run",{"Driver got ",seq_item.convert2string()},UVM_DEBUG)
+   		`uvm_info("Driver Run",$sformatf("Driver got %2h %1h",seq_item.data,seq_item.op),UVM_MEDIUM)
    		transfer(seq_item);
    		seq_item_port.item_done();
    	end

@@ -8,7 +8,7 @@ class counter_inc_sequence extends uvm_sequence #(counter_sequence_item);
   counter_sequence_item seq_item;    
   
   // Constructor
-  function new(string name = "");
+  function new(string name="");
       super.new(name);
    endfunction : new
 
@@ -16,13 +16,13 @@ class counter_inc_sequence extends uvm_sequence #(counter_sequence_item);
   task body();
   	repeat (10) begin
   		// Creating a new object of seq_item
-  		seq_item = new();
+  		seq_item = counter_sequence_item::type_id::create("seq_item");
   		// Initializing Increment Sequence
   		// Start the Sequence
   		start_item(seq_item);
   		// Initiating op with reset
   		seq_item.op = inc;
-  		`uvm_info("counter_inc_sequence",{"Sending transaction ",seq_item.convert2string()}, UVM_MEDIUM);
+  		`uvm_info("counter_inc_sequence",$sformatf("Sending transaction %2h %1h ",seq_item.data,seq_item.op), UVM_MEDIUM);
   		// Finish the Sequence
   		finish_item(seq_item);
   	end

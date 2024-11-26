@@ -31,7 +31,8 @@ module top;
    initial begin
       string test_name;
 
-      counter_pkg::global_if = ctr_if;
+      // Set the Counter Virtual interface in Config Database
+      uvm_config_db #(virtual counter_if)::set(null,"*","vif",ctr_if);
 
       run_test();
       
