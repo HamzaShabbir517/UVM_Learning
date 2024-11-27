@@ -15,6 +15,7 @@ class counter_test extends uvm_test;
 
    // Declaration of Environment Component
    counter_environment env_h;
+   env_config env_config_h;
 
    // New Constructor
    function new(string name="", uvm_component parent);
@@ -24,9 +25,15 @@ class counter_test extends uvm_test;
    // Test Build Phase
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
-      env_h = counter_environment::type_id::create("env_h",this);
-      // Set the verbose value in the Config Database
-      uvm_config_db #(int)::set(this,"*","verbose",1);     
+      
+      // Create env configuration object 
+      env_config_h =  env_config::type_id::create("env_config_h");
+      configure_env(env_config_h);
+      // Setting the environment configure in data
+      uvm_config_db #(env_config)::set(this,"*","env_config",env_config_h);
+      
+      // Buildig envrionment
+      env_h = counter_environment::type_id::create("env_h",this); 
    endfunction : build_phase
    
    // Test Run Task
@@ -44,6 +51,17 @@ class counter_test extends uvm_test;
    	join
    	phase.drop_objection(this);
    endtask
+   
+   
+   function void configure_env(env_config cfg);
+   	cfg.has_scoreboard = 1;
+   	cfg.has_predictor = 1;
+   	cfg.has_coverage = 0;
+   	cfg.verbose = 1;
+   	cfg.active = UVM_ACTIVE;
+   	if(!uvm_config_db #(virtual counter_if)::get(this,"*","vif",cfg.vi))
+   		`uvm_fatal("TEST",$sformatf("Virtual Interface Not Found"));
+   endfunction
 endclass
 
 

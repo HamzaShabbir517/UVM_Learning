@@ -10,6 +10,9 @@ package counter_pkg;
    // Including UVM macros
    `include "uvm_macros.svh"
    
+   // UVM Config Objects
+   `include "config.svh"
+   
    // UVM Transactions
    `include "counter_sequence_item.svh"
    `include "counter_reset_sequence.svh"
