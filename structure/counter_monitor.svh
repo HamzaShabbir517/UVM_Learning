@@ -7,9 +7,6 @@ class counter_monitor extends uvm_monitor;
    // Declaration of Virtual Interface
    virtual interface counter_if i;
    
-   // Declaration of Environment Configuration
-   env_config env_config_h;
-   
    // Declaration of Sequence Item
    counter_sequence_item seq_item;
    
@@ -24,16 +21,10 @@ class counter_monitor extends uvm_monitor;
    // Monitor Build Phase
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
-      // Get the configuration from database
-      if(!uvm_config_db #(env_config)::get(this,"*","env_config",env_config_h))
-      	`uvm_fatal("Monitor",$sformatf("Configuration Not Found"));
+      // Construct Monitor analysis port
       analysis_port = new("analysis_port",this);  
    endfunction : build_phase
    
-   // Monitor Connect Phase
-   function void connect_phase(uvm_phase phase);
-   	i = env_config_h.vi;
-   endfunction
    
    // Monitor Run Task
    task run_phase(uvm_phase phase);
@@ -41,7 +32,6 @@ class counter_monitor extends uvm_monitor;
    	@(negedge i.rst);
    	forever begin
    		@(posedge i.clk);
-   		
    		// Capture the input signals
    		seq_item.data = i.data_in;
    		seq_item.op = (i.inc) ? inc :
@@ -49,6 +39,7 @@ class counter_monitor extends uvm_monitor;
                              (~i.rst) ? reset : nop;
                 // Capture the output signals
                 seq_item.q = i.q;
+                // Write the transaction on analysis port
    		analysis_port.write(seq_item);
    		
    		`uvm_info("Monitor Run",$sformatf("Monitor got %2h %1h %2h",seq_item.data,seq_item.op,seq_item.q),UVM_MEDIUM);

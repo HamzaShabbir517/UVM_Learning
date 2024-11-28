@@ -7,9 +7,6 @@ class counter_driver extends uvm_driver #(counter_sequence_item);
    // Declaration of Virtual Interface
    virtual interface counter_if i;
    
-   // Declaration of Environment Configuration
-   env_config env_config_h;
-   
    // Declaration of Sequence Item
    counter_sequence_item seq_item;
 
@@ -21,15 +18,9 @@ class counter_driver extends uvm_driver #(counter_sequence_item);
    // Driver Build Phase
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
-      // Get the configuration from database
-      if(!uvm_config_db #(env_config)::get(this,"*","env_config",env_config_h))
-      	`uvm_fatal("Driver",$sformatf("Configuration Not Found"));
+      
    endfunction : build_phase
    
-   // Driver Connect Phase
-   function void connect_phase(uvm_phase phase);
-   	i = env_config_h.vi;
-   endfunction
    
    // Driver Run Task
    task run_phase(uvm_phase phase);
