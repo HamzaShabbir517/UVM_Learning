@@ -29,7 +29,7 @@ class counter_environment extends uvm_env;
      function void build_phase(uvm_phase phase);
      	super.build_phase(phase);
      	// Getting Environment Config Object from Database
-     	if(!uvm_config_db #(env_config)::get(this,"*","env_config",env_config_h)
+     	if(!uvm_config_db #(env_config)::get(this,"*","env_config",env_config_h))
      		`uvm_error("Environment",$sformatf("Unable to get the Environment Configuration"));
      	
      	// Creating other components from factory
