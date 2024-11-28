@@ -38,12 +38,15 @@ class counter_test extends uvm_test;
    
    // Test Run Task
    task run_phase(uvm_phase phase);
+   	// Creating test sequences from factory
    	rst_seq = counter_reset_sequence::type_id::create("rst_seq",this);
    	inc_seq = counter_inc_sequence::type_id::create("inc_seq",this);
    	load_seq = counter_load_sequence::type_id::create("load_seq",this);
    	ran_seq = counter_random_sequence::type_id::create("ran_seq",this);
    	phase.raise_objection(this);
+   	// Reset Sequence
    	rst_seq.start(env_h.agent_h.sequencer_h);
+   	// Parallel Sequence
    	fork
    		inc_seq.start(env_h.agent_h.sequencer_h);
    		load_seq.start(env_h.agent_h.sequencer_h);
@@ -52,7 +55,7 @@ class counter_test extends uvm_test;
    	phase.drop_objection(this);
    endtask
    
-   
+   // Configure the Environment Config Object
    function void configure_env(env_config cfg);
    	cfg.has_scoreboard = 1;
    	cfg.has_predictor = 1;
